@@ -8,7 +8,7 @@
 }
 
 .navbar h2 {
-  color: black;
+  color: #5f7d5d;
 }
 
 .nav-links {
@@ -18,6 +18,6 @@
 
 .nav-links a {
   text-decoration: none;
-  color: #333;
+  color: #5f7d5d;
   font-weight: 600;
 }
