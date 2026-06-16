@@ -1,0 +1,20 @@
+.book-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: 0.3s;
+}
+
+.book-card:hover {
+  transform: translateY(-5px);
+}
+
+.book-card span {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.4rem 0.8rem;
+  background: #e0e7ff;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
