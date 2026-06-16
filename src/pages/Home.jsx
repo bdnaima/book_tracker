@@ -1,20 +1,16 @@
-import { useState } from "react";
-import booksData from "../data/books";
-import BookCard from "../componets/BookCard/BookCard";
+import BookCard from "../components/BookCard/BookCard";
 
-const Home = () => {
-  const [books] = useState(booksData);
-
+const Home = ({ books }) => {
   return (
     <section className="home">
-      <h1>My Reading Journey</h1>
-
-      <p>Track your books and reading progress.</p>
+      <h1>My Library</h1>
 
       <div className="books-grid">
-        {books.map((book) => (
-          <BookCard key={book.id} book={book} />
-        ))}
+        {books.length === 0 ? (
+          <p>No books yet</p>
+        ) : (
+          books.map((book) => <BookCard key={book.id} book={book} />)
+        )}
       </div>
     </section>
   );
