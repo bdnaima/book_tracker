@@ -3,7 +3,7 @@
   border-radius: 18px;
   overflow: hidden;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-
+  width: 100%;
   transition: 0.2s ease;
 }
 
@@ -27,6 +27,7 @@
   font-size: 1rem;
   margin-bottom: 0.4rem;
   color: #4a4a42;
+  min-height: 48px;
 }
 
 .book-author {

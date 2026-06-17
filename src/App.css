@@ -1,8 +1,8 @@
 :root {
   --bg: #f6f3eb;
   --card-bg: #ffffff;
-  --primary: #7c9a7a;
-  --primary-dark: #5f7d5d;
+  --primary: #c96a4a;
+  --primary-dark: #a85439;
   --text: #4a4a42;
   --text-light: #7b7b70;
   --border: #ddd8ca;
@@ -33,12 +33,12 @@ body {
   margin-bottom: 1rem;
   color: black;
 }
-
+/* Books Grid */
 .books-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
-  margin-top: 1rem;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
 }
 
 .empty-state {
@@ -47,6 +47,8 @@ body {
   font-size: 1.2rem;
   color: #777;
 }
+
+/* Adding books form section */
 
 .book-form {
   max-width: 650px;
@@ -99,6 +101,7 @@ body {
   background: var(--primary-dark);
 }
 
+/* Home Section */
 .home {
   max-width: 1200px;
   margin: 0 auto;
@@ -115,6 +118,7 @@ body {
   padding: 0.8rem 1.5rem;
 }
 
+/* Search section */
 .search-box {
   background: white;
   border: 1px solid var(--border);
@@ -142,11 +146,26 @@ body {
 .search-btn {
   margin-right: 6px;
   border-radius: 999px;
+  border: none;
   padding: 0.7rem 1.2rem;
   background: var(--primary);
   color: white;
 }
 
+/* loading spinner */
+
 .spinner {
   animation: spin 1s linear infinite;
+}
+
+@media (max-width: 900px) {
+  .books-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .books-grid {
+    grid-template-columns: 1fr;
+  }
 }

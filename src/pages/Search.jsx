@@ -51,7 +51,7 @@ const Search = ({ setBooks }) => {
         </div>
       </div>
 
-      <div className="books-grid">
+      <div className="books-grid home">
         {results.map((book) => (
           <div key={book.key} className="book-card">
             <img

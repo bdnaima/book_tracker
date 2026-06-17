@@ -1,8 +1,11 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaBookReader } from "react-icons/fa";
 import "./Navbar.css";
 
 const Navbar = () => {
+  const [open, setOpen] = useState(false);
+
   return (
     <nav className="navbar">
       <div className="navbar-logo">
@@ -10,10 +13,20 @@ const Navbar = () => {
         <h2>Book Tracker</h2>
       </div>
 
-      <div className="nav-links">
-        <Link to="/">Dashboard</Link>
-        <Link to="/add-book">Add Book</Link>
-        <Link to="/search">Search</Link>
+      <button className="menu-btn" onClick={() => setOpen(!open)}>
+        ☰
+      </button>
+
+      <div className={`nav-links ${open ? "active" : ""}`}>
+        <Link to="/" onClick={() => setOpen(false)}>
+          Dashboard
+        </Link>
+        <Link to="/search" onClick={() => setOpen(false)}>
+          Search
+        </Link>
+        <Link to="/add-book" onClick={() => setOpen(false)}>
+          Add Book
+        </Link>
       </div>
     </nav>
   );
