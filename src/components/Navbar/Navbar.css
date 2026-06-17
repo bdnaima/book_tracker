@@ -7,6 +7,12 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
 }
 
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .navbar h2 {
   color: #5f7d5d;
 }

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 import "../App.css";
 
-const Search = ({ books, setBooks }) => {
+const Search = ({ setBooks }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -14,7 +14,8 @@ const Search = ({ books, setBooks }) => {
     );
 
     const data = await res.json();
-    setResults(data.docs.slice(0, 10));
+    console.log(data.docs);
+    setResults(data.docs.slice(0, 12));
     setLoading(false);
   };
 
@@ -24,6 +25,7 @@ const Search = ({ books, setBooks }) => {
       title: book.title,
       author: book.author_name?.[0] || "Unknown",
       status: "Want to Read",
+      cover_i: book.cover_i,
     };
 
     setBooks((prev) => [...prev, newBook]);
@@ -44,7 +46,7 @@ const Search = ({ books, setBooks }) => {
           />
 
           <button className="search-btn" onClick={searchBooks}>
-            Search
+            {loading ? <FaSpinner className="spinner" /> : "Search"}
           </button>
         </div>
       </div>

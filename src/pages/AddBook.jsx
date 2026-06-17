@@ -1,23 +1,32 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const AddBook = ({ setBooks }) => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
+  const [description, setDescription] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!title.trim() || !author.trim()) {
+      return;
+    }
 
     const newBook = {
       id: Date.now(),
       title,
       author,
       status: "Want to Read",
+      description,
     };
 
     setBooks((prev) => [...prev, newBook]);
+    toast.success("Book added successfully!");
 
     setTitle("");
     setAuthor("");
+    setDescription("");
   };
 
   return (
@@ -35,6 +44,12 @@ const AddBook = ({ setBooks }) => {
           placeholder="Author"
           value={author}
           onChange={(e) => setAuthor(e.target.value)}
+        />
+
+        <textarea
+          placeholder="Description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
         />
 
         <button type="submit">Add</button>

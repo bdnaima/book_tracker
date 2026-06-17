@@ -5,9 +5,10 @@ import "./Navbar.css";
 const Navbar = () => {
   return (
     <nav className="navbar">
-      <h2>
-        <FaBookReader style={{ color: "#5f7d5d" }} /> Book Tracker
-      </h2>
+      <div className="navbar-logo">
+        <FaBookReader style={{ color: "#5f7d5d", fontSize: "1.5rem" }} />
+        <h2>Book Tracker</h2>
+      </div>
 
       <div className="nav-links">
         <Link to="/">Dashboard</Link>

@@ -1,11 +1,16 @@
 import "./BookCard.css";
+import bookCoverDefault from "../../assets/images/book_cover.jpg";
 
 const BookCard = ({ book }) => {
   return (
     <div className="book-card">
       <img
         className="book-cover"
-        src={`https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`}
+        src={
+          book.cover_i
+            ? `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`
+            : bookCoverDefault
+        }
         alt={book.title}
       />
 
@@ -14,10 +19,8 @@ const BookCard = ({ book }) => {
         <p className="book-author">{book.author_name?.[0]}</p>
 
         <p className="book-desc">
-          {book.first_sentence?.[0] || "No description available."}
+          {book.description || "No description available."}
         </p>
-
-        <button onClick={() => saveBook(book)}>➕ Save</button>
       </div>
     </div>
   );
