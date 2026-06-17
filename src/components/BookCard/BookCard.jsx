@@ -1,6 +1,7 @@
 import "./BookCard.css";
 import bookCoverDefault from "../../assets/images/book_cover.jpg";
 
+// BookCard component to display individual book information
 const BookCard = ({ book }) => {
   return (
     <div className="book-card">

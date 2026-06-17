@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const AddBook = ({ setBooks }) => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [description, setDescription] = useState("");
+  const navigate = useNavigate();
 
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -13,6 +16,7 @@ const AddBook = ({ setBooks }) => {
       return;
     }
 
+    // Create a new book object
     const newBook = {
       id: Date.now(),
       title,
@@ -21,8 +25,12 @@ const AddBook = ({ setBooks }) => {
       description,
     };
 
+    // Add the new book to the state
     setBooks((prev) => [...prev, newBook]);
+    // Show a success message
     toast.success("Book added successfully!");
+    // Navigate back to the home page
+    navigate("/");
 
     setTitle("");
     setAuthor("");

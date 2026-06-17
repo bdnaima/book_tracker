@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { FaSpinner } from "react-icons/fa";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import "../App.css";
 
 const Search = ({ setBooks }) => {
@@ -7,18 +9,29 @@ const Search = ({ setBooks }) => {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const navigate = useNavigate();
+
+  // Function to search for books
   const searchBooks = async () => {
     setLoading(true);
+    // Fetch books from Open Library API
     const res = await fetch(
       `https://openlibrary.org/search.json?q=${searchTerm}`,
     );
-
+    // Check if the response is successful
+    if (!res.ok) {
+      toast.error("Failed to fetch books");
+      setLoading(false);
+      return;
+    }
+    // If the response is successful, parse the JSON data
     const data = await res.json();
     console.log(data.docs);
     setResults(data.docs.slice(0, 12));
     setLoading(false);
   };
 
+  // Function to save a book
   const saveBook = (book) => {
     const newBook = {
       id: Date.now(),
@@ -28,7 +41,12 @@ const Search = ({ setBooks }) => {
       cover_i: book.cover_i,
     };
 
+    // Add the new book to the state
     setBooks((prev) => [...prev, newBook]);
+    // Show a success message
+    toast.success("Book added successfully!");
+    // Navigate back to the home page
+    navigate("/");
   };
 
   return (

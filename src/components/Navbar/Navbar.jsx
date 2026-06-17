@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { FaBookReader } from "react-icons/fa";
 import "./Navbar.css";
 
+// Navbar component for navigation
 const Navbar = () => {
   const [open, setOpen] = useState(false);
 

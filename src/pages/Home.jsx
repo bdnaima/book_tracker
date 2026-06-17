@@ -1,6 +1,7 @@
 import BookCard from "../components/BookCard/BookCard";
 import "../App.css";
 
+// Home component to display the user's library
 const Home = ({ books }) => {
   return (
     <section className="home">

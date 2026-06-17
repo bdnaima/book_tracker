@@ -14,9 +14,13 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar />
+      {/* Define routes for different pages */}
       <Routes>
+        {/** Home page that displays the list of books */}
         <Route path="/" element={<Home books={books} />} />
+        {/** Page for adding a new book */}
         <Route path="/add-book" element={<AddBook setBooks={setBooks} />} />
+        {/** Page for searching books */}
         <Route path="/search" element={<Search setBooks={setBooks} />} />
       </Routes>
       <ToastContainer />
