@@ -17,7 +17,7 @@ function App() {
       {/* Define routes for different pages */}
       <Routes>
         {/** Home page that displays the list of books */}
-        <Route path="/" element={<Home books={books} />} />
+        <Route path="/" element={<Home books={books} setBooks={setBooks} />} />
         {/** Page for adding a new book */}
         <Route path="/add-book" element={<AddBook setBooks={setBooks} />} />
         {/** Page for searching books */}
