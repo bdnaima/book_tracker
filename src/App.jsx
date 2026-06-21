@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -10,7 +10,24 @@ import Navbar from "./components/Navbar/Navbar";
 import "./App.css";
 
 function App() {
-  const [books, setBooks] = useState([]);
+  const [books, setBooks] = useState(() => {
+    try {
+      const savedJson = localStorage.getItem("books");
+      return savedJson ? JSON.parse(savedJson) : [];
+    } catch (err) {
+      console.error("Could not parse books from localStorage:", err);
+      return [];
+    }
+  });
+
+  // Save to localStorage whenever books change
+  useEffect(() => {
+    try {
+      localStorage.setItem("books", JSON.stringify(books));
+    } catch (err) {
+      console.error("Could not save books to localStorage:", err);
+    }
+  }, [books]);
   return (
     <BrowserRouter>
       <Navbar />

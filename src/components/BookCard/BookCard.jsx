@@ -25,7 +25,7 @@ const BookCard = ({ book, deleteBook, toggleStatus }) => {
             {book.status === "Read" ? "Read" : "Want to Read"}
           </span>
         </div>
-        <p className="book-author">{book.author_name?.[0]}</p>
+        <p className="book-author">{book.author}</p>
 
         <p className="book-desc">
           {book.description || "No description available."}

@@ -9,10 +9,10 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <div className="navbar-logo">
+      <Link to="/" className="navbar-logo">
         <FaBookReader style={{ color: "#5f7d5d", fontSize: "1.5rem" }} />
         <h2>Book Tracker</h2>
-      </div>
+      </Link>
 
       <button className="menu-btn" onClick={() => setOpen(!open)}>
         ☰
