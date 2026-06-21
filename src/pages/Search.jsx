@@ -8,12 +8,14 @@ const Search = ({ setBooks }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
 
   const navigate = useNavigate();
 
   // Function to search for books
   const searchBooks = async () => {
     setLoading(true);
+    setHasSearched(true);
     // Fetch books from Open Library API
     const res = await fetch(
       `https://openlibrary.org/search.json?q=${searchTerm}`,
@@ -64,9 +66,18 @@ const Search = ({ setBooks }) => {
           />
 
           <button className="search-btn" onClick={searchBooks}>
-            {loading ? <FaSpinner className="spinner" /> : "Search"}
+            Search
           </button>
         </div>
+        {loading && (
+          <div className="loading-container">
+            <FaSpinner className="spinner" />
+            <p>Searching books...</p>
+          </div>
+        )}
+        {!loading && hasSearched && results.length === 0 && (
+          <p className="no-results">No books found.</p>
+        )}
       </div>
 
       <div className="books-grid home">

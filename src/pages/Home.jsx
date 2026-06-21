@@ -23,7 +23,7 @@ const Home = ({ books, setBooks }) => {
 
   return (
     <section className="home">
-      <h1>My Library</h1>
+      <h1>My Books</h1>
 
       {books.length === 0 ? (
         <p className="empty-state">No books in your library yet</p>

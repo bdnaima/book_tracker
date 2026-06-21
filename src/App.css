@@ -38,7 +38,7 @@ body {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.5rem;
-  margin-top: 1.5rem;
+  margin-top: 4rem;
 }
 
 .empty-state {
@@ -154,9 +154,34 @@ body {
 
 /* loading spinner */
 
+.loading-container {
+  margin-top: 1rem;
+  text-align: center;
+}
+
 .spinner {
+  font-size: 2rem;
   animation: spin 1s linear infinite;
 }
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.no-results {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 1.1rem;
+  color: #666;
+}
+
+/* Media Queries */
 
 @media (max-width: 900px) {
   .books-grid {

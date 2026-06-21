@@ -19,17 +19,16 @@ const BookCard = ({ book, deleteBook, toggleStatus }) => {
       <div className="book-content">
         <div className="book-info">
           <h3 className="book-title">{book.title}</h3>
+          <p className="book-author">{book.author}</p>
+          <p className="book-desc">
+            {book.description || "No description available."}
+          </p>
           <span
             className={`book-status ${book.status === "Read" ? "read" : "want"}`}
           >
             {book.status === "Read" ? "Read" : "Want to Read"}
           </span>
         </div>
-        <p className="book-author">{book.author}</p>
-
-        <p className="book-desc">
-          {book.description || "No description available."}
-        </p>
       </div>
       <div className="book-actions">
         <button
