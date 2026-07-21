@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "../lib/supabase";
 
 const AddBook = ({ setBooks }) => {
   const [title, setTitle] = useState("");
@@ -9,7 +10,7 @@ const AddBook = ({ setBooks }) => {
   const navigate = useNavigate();
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!title.trim() || !author.trim()) {
@@ -18,15 +19,26 @@ const AddBook = ({ setBooks }) => {
 
     // Create a new book object
     const newBook = {
-      id: Date.now(),
       title,
       author,
       status: "Want to Read",
       description,
     };
 
+    const { data, error } = await supabase
+      .from("books")
+      .insert(newBook)
+      .select()
+      .single();
+
+    if (error) {
+      console.error("Error adding book:", error);
+      toast.error("Could not add book");
+      return;
+    }
+
     // Add the new book to the state
-    setBooks((prev) => [...prev, newBook]);
+    setBooks((prev) => [...prev, data]);
     // Show a success message
     toast.success("Book added successfully!");
     // Navigate back to the home page
