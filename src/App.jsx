@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
+import { supabase } from "./lib/supabase";
 import "react-toastify/dist/ReactToastify.css";
 
 import Home from "./pages/Home";
@@ -9,25 +10,27 @@ import Search from "./pages/Search";
 import Navbar from "./components/Navbar/Navbar";
 import "./App.css";
 
-function App() {
-  const [books, setBooks] = useState(() => {
-    try {
-      const savedJson = localStorage.getItem("books");
-      return savedJson ? JSON.parse(savedJson) : [];
-    } catch (err) {
-      console.error("Could not parse books from localStorage:", err);
-      return [];
-    }
-  });
+const App = () => {
+  const [books, setBooks] = useState([]);
 
-  // Save to localStorage whenever books change
   useEffect(() => {
-    try {
-      localStorage.setItem("books", JSON.stringify(books));
-    } catch (err) {
-      console.error("Could not save books to localStorage:", err);
+    async function getBooks() {
+      const { data, error } = await supabase.from("books").select("*");
+
+      console.log("Supabase books:", data);
+      console.log("Supabase error:", error);
+
+      if (error) {
+        console.error("Error fetching books:", error);
+        return;
+      }
+
+      setBooks(data);
     }
-  }, [books]);
+
+    getBooks();
+  }, []);
+
   return (
     <BrowserRouter>
       <Navbar />
@@ -43,6 +46,6 @@ function App() {
       <ToastContainer />
     </BrowserRouter>
   );
-}
+};
 
 export default App;
