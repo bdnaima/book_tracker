@@ -2,6 +2,8 @@ import { useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "../lib/supabase";
+import bookCoverDefault from "../assets/images/book_cover.jpg";
 import "../App.css";
 
 const Search = ({ setBooks }) => {
@@ -34,17 +36,28 @@ const Search = ({ setBooks }) => {
   };
 
   // Function to save a book
-  const saveBook = (book) => {
+  const saveBook = async (book) => {
     const newBook = {
-      id: Date.now(),
       title: book.title,
       author: book.author_name?.[0] || "Unknown",
       status: "Want to Read",
       cover_i: book.cover_i,
     };
 
+    const { data, error } = await supabase
+      .from("books")
+      .insert(newBook)
+      .select()
+      .single();
+
+    if (error) {
+      console.error("Error saving book:", error);
+      toast.error("Could not save book.");
+      return;
+    }
+
     // Add the new book to the state
-    setBooks((prev) => [...prev, newBook]);
+    setBooks((prev) => [...prev, data]);
     // Show a success message
     toast.success("Book added successfully!");
     // Navigate back to the home page
@@ -88,7 +101,7 @@ const Search = ({ setBooks }) => {
               src={
                 book.cover_i
                   ? `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`
-                  : "https://via.placeholder.com/180x260?text=No+Cover"
+                  : bookCoverDefault
               }
               alt={book.title}
             />
