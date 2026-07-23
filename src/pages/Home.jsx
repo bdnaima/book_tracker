@@ -18,15 +18,31 @@ const Home = ({ books, setBooks }) => {
     toast.success("Book deleted successfully!");
   };
 
-  const toggleStatus = (id) => {
+  const toggleStatus = async (id) => {
+    // Find the current book
+    const currentBook = books.find((book) => book.id === id);
+
+    if (!currentBook) return;
+
+    // Decide the new status
+    const newStatus =
+      currentBook.status === "Want to Read" ? "Read" : "Want to Read";
+
+    // Update Supabase
+    const { error } = await supabase
+      .from("books")
+      .update({ status: newStatus })
+      .eq("id", id);
+
+    if (error) {
+      console.error("Error updating book:", error);
+      return;
+    }
+
+    // Update React state
     setBooks((prev) =>
       prev.map((book) =>
-        book.id === id
-          ? {
-              ...book,
-              status: book.status === "Want to Read" ? "Read" : "Want to Read",
-            }
-          : book,
+        book.id === id ? { ...book, status: newStatus } : book,
       ),
     );
   };
