@@ -1,11 +1,21 @@
 import BookCard from "../components/BookCard/BookCard";
+import { toast } from "react-toastify";
+import { supabase } from "../lib/supabase";
 import "../App.css";
 
 // Home component to display the user's library
 const Home = ({ books, setBooks }) => {
   // Delete a book
-  const deleteBook = (id) => {
+  const deleteBook = async (id) => {
+    const { error } = await supabase.from("books").delete().eq("id", id);
+
+    if (error) {
+      console.error("Error deleting book:", error);
+      return;
+    }
+
     setBooks((prev) => prev.filter((book) => book.id !== id));
+    toast.success("Book deleted successfully!");
   };
 
   const toggleStatus = (id) => {
