@@ -9,6 +9,7 @@ import AddBook from "./pages/AddBook";
 import Search from "./pages/Search";
 import Navbar from "./components/Navbar/Navbar";
 import Landing from "./pages/Landing";
+import Auth from "./pages/Auth";
 import "./App.css";
 
 const App = () => {
@@ -40,6 +41,7 @@ const App = () => {
         {/** Home page that displays the list of books */}
 
         <Route path="/" element={<Landing />} />
+        <Route path="/auth" element={<Auth />} />
         <Route
           path="/library"
           element={<Home books={books} setBooks={setBooks} />}
