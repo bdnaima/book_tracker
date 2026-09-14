@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import AddBook from "./pages/AddBook";
 import Search from "./pages/Search";
 import Navbar from "./components/Navbar/Navbar";
+import Landing from "./pages/Landing";
 import "./App.css";
 
 const App = () => {
@@ -37,11 +38,18 @@ const App = () => {
       {/* Define routes for different pages */}
       <Routes>
         {/** Home page that displays the list of books */}
-        <Route path="/" element={<Home books={books} setBooks={setBooks} />} />
+
+        <Route path="/" element={<Landing />} />
+        <Route
+          path="/library"
+          element={<Home books={books} setBooks={setBooks} />}
+        />
         {/** Page for adding a new book */}
         <Route path="/add-book" element={<AddBook setBooks={setBooks} />} />
         {/** Page for searching books */}
         <Route path="/search" element={<Search setBooks={setBooks} />} />
+        {/** Landing page */}
+        <Route path="/landing" element={<Landing />} />
       </Routes>
       <ToastContainer />
     </BrowserRouter>

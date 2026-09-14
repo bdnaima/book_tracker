@@ -44,6 +44,25 @@ const Search = ({ setBooks }) => {
       cover_i: book.cover_i,
     };
 
+    // Check if the book already exists
+    const { data: existingBook, error: checkError } = await supabase
+      .from("books")
+      .select("id")
+      .eq("title", newBook.title)
+      .eq("author", newBook.author)
+      .maybeSingle();
+
+    if (checkError) {
+      console.error("Error checking for existing book:", checkError);
+      return;
+    }
+
+    if (existingBook) {
+      toast.info("This book is already in your library.");
+      return;
+    }
+
+    // Insert the book
     const { data, error } = await supabase
       .from("books")
       .insert(newBook)

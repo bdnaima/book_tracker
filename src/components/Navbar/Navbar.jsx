@@ -19,8 +19,8 @@ const Navbar = () => {
       </button>
 
       <div className={`nav-links ${open ? "active" : ""}`}>
-        <Link to="/" onClick={() => setOpen(false)}>
-          Dashboard
+        <Link to="/library" onClick={() => setOpen(false)}>
+          My Library
         </Link>
         <Link to="/search" onClick={() => setOpen(false)}>
           Search

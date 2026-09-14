@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import BookCard from "../components/BookCard/BookCard";
 import { toast } from "react-toastify";
 import { supabase } from "../lib/supabase";
@@ -49,10 +50,20 @@ const Home = ({ books, setBooks }) => {
 
   return (
     <section className="home">
+      <p className="library-label">MY LIBRARY</p>
       <h1>My Books</h1>
 
       {books.length === 0 ? (
-        <p className="empty-state">No books in your library yet</p>
+        <div className="empty-state">
+          <h2>Your library is empty</h2>
+          <p>
+            Start building your personal collection by adding your first book.
+          </p>
+
+          <Link to="/add-book" className="empty-state-button">
+            Add Your First Book
+          </Link>
+        </div>
       ) : (
         <div className="books-grid">
           {books.map((book) => (
