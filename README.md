@@ -1,18 +1,22 @@
 # 📚 Book Tracker
 
-A personal book management application built with **React**. This app allows users to create their own digital library, search for books using the Open Library API, save books, and track their reading progress.
+A personal book management application built with **React** and **Supabase**. Users can create an account, search for books using the Open Library API, save books to their personal library, and track their reading progress.
 
-The project was created as part of the JavaScript & React course at **Technigo** and focuses on building a multi-page React application using React Router, state management, API integration, and browser storage.
+The project was created as part of the **Lexicon Fullstack .NET** education program and focuses on building a modern web application with React, authentication, database integration, API integration, routing, and responsive design.
 
 ## ✨ Features
 
-- 📖 View your personal book library
-- ➕ Add new books manually
+- 📖 Create and manage a personal book library
+- 🔐 User registration and login
 - 🔍 Search for books using the Open Library API
-- 💾 Store books using localStorage so your library remains after refreshing
+- 💾 Save books to a personal Supabase database
 - ✅ Mark books as "Read" or "Want to Read"
-- 🗑️ Remove books from your library
-- 🔔 Display notifications when books are added successfully
+- 🗑️ Remove books from the library
+- ➕ Add books manually
+- 🔒 Protected routes for authenticated users
+- 👤 User-specific book libraries
+- 🛡️ Row Level Security (RLS) to protect user data
+- 🔔 Toast notifications for user actions
 - 📱 Responsive design for different screen sizes
 
 ## 🛠️ Built With
@@ -21,62 +25,96 @@ The project was created as part of the JavaScript & React course at **Technigo**
 - React Router
 - JavaScript (ES6+)
 - CSS
-- LocalStorage API
+- Supabase
+- Supabase Authentication
+- PostgreSQL
+- Row Level Security (RLS)
 - Open Library API
 - React Toastify
 - React Icons
 - Vite
+- Vercel
 
 ## 📂 Pages
 
-### Dashboard (`/`)
+### Landing Page (`/`)
 
-Displays all saved books in the user's personal library.
+The landing page introduces the Book Tracker application and allows visitors to:
+
+- Learn about the application
+- Start their personal library
+- Search for books
+
+### Authentication (`/auth`)
 
 Users can:
 
-- View book details
+- Create an account
+- Log in
+- Receive feedback for invalid login details
+- Switch between login and sign-up
+
+### My Library (`/library`)
+
+Authenticated users can:
+
+- View their saved books
 - Check reading status
-- Change status between "Want to Read" and "Read"
+- Change a book between "Want to Read" and "Read"
 - Delete books
+
+Each user's library is connected to their own account.
 
 ### Add Book (`/add-book`)
 
-Allows users to manually add books by entering:
+Authenticated users can manually add a book by entering:
 
 - Title
 - Author
 - Description
 
-New books are automatically saved to the library.
+The book is saved to the user's personal library.
 
 ### Search (`/search`)
 
-Allows users to search for books through the Open Library API.
+Users can search for books using the Open Library API.
 
-Users can:
+Visitors can search without creating an account.
 
-- Search by title or keyword
-- View available book results
-- Save books directly to their library
+Authenticated users can also:
+
+- View book information
+- Save books directly to their personal library
+
+If a visitor tries to save a book without being logged in, they are asked to log in first.
+
+## 🔐 Authentication & Data Security
+
+Authentication and database storage are handled using **Supabase**.
+
+Users can create an account and log in before accessing their personal library and other authenticated features.
+
+The application uses **Row Level Security (RLS)** policies to ensure that users can only access and manage books belonging to their own account.
 
 ## 💾 Data Storage
 
-The application uses **localStorage** to save the user's books.
+Books are stored in a **Supabase PostgreSQL database**.
 
-When the app loads, it retrieves previously saved books from the browser. Any changes to the library are automatically stored so users don't lose their data after refreshing the page.
+Each book is associated with the authenticated user's ID. This allows every user to have their own personal library.
+
+The application retrieves the user's books when they log in and keeps the library synchronized with the database when books are added, updated, or deleted.
 
 ## 🌐 API
 
-Book search functionality is powered by the Open Library API:
+Book search functionality is powered by the **Open Library API**.
 
-https://openlibrary.org/developers/api
+The application retrieves information such as:
 
-The app fetches book information including:
-
-- Titles
+- Book titles
 - Authors
 - Cover images
+
+Search is available to visitors without requiring an account, while saving books requires authentication.
 
 ## 🚀 Getting Started
 
@@ -92,6 +130,15 @@ git clone https://github.com/bdnaima/book_tracker.git
 npm install
 ```
 
+### Configure environment variables
+
+Create a `.env` file and add your Supabase project credentials:
+
+```env
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_publishable_key
+```
+
 ### Start the development server
 
 ```bash
@@ -100,20 +147,26 @@ npm run dev
 
 The application will run locally in your browser.
 
+## 🌐 Live Demo
+
+The application is deployed on **Vercel**.
+
+[Add your Vercel URL here]
+
 ## 🔮 Future Improvements
 
-Possible improvements for future versions:
+Possible future improvements include:
 
-- User authentication
-- Cloud database storage
-- Ability to edit book details
-- Filter books by reading status
-- Sorting options
-- Individual book detail pages
+- ✏️ Edit existing book details
+- 🔎 Filter books by reading status
+- ↕️ Sort books by title or author
+- 📖 Add individual book detail pages
+- ⭐ Add personal book ratings or notes
 
 ## 👩‍💻 Author
 
 Created by **Naima**
 
 GitHub:
+
 https://github.com/bdnaima
