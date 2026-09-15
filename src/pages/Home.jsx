@@ -52,12 +52,18 @@ const Home = ({ books, setBooks }) => {
     <section className="home">
       <p className="library-label">MY LIBRARY</p>
       <h1>My Books</h1>
+      <p className="library-subtitle">
+        Keep track of the books you want to read and the ones you've finished.
+      </p>
 
       {books.length === 0 ? (
         <div className="empty-state">
           <h2>Your library is empty</h2>
           <p>
-            Start building your personal collection by adding your first book.
+            <p>
+              Start building your personal collection by adding a book or
+              searching for something new to read.
+            </p>
           </p>
 
           <Link to="/add-book" className="empty-state-button">

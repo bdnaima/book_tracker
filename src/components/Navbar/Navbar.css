@@ -29,6 +29,18 @@
   font-weight: 600;
 }
 
+.nav-links button {
+  text-decoration: none;
+  color: #5f7d5d;
+  font-weight: 600;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: inherit;
+  font-family: inherit;
+  cursor: pointer;
+}
+
 .menu-btn {
   display: none;
   font-size: 1.8rem;

@@ -18,6 +18,7 @@
   background: #fafafa;
   padding: 10px;
   box-sizing: border-box;
+  border-bottom: 1px solid var(--border);
 }
 
 .book-content {
@@ -51,12 +52,26 @@
   margin-bottom: 1rem;
   font-size: 0.85rem;
   opacity: 0.8;
+  line-height: 1.5;
+  min-height: 3.75rem;
 }
 
 .book-card span {
+  display: inline-block;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.book-status.read {
+  background: #e4efe3;
   color: #4e694c;
-  font-weight: bold;
-  font-size: 0.9rem;
+}
+
+.book-status.want {
+  background: #f5e5dc;
+  color: var(--primary-dark);
 }
 
 .book-actions {
@@ -64,6 +79,7 @@
   gap: 8px;
   justify-content: flex-end;
   padding: 10px;
+  border-top: 1px solid var(--border);
 }
 
 .icon-btn {
@@ -75,6 +91,14 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.icon-btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.85;
 }
 
 .delete-btn {

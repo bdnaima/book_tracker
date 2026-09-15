@@ -21,8 +21,8 @@ const Landing = () => {
           </p>
 
           <div className="landing-buttons">
-            <Link to="/library" className="landing-button primary">
-              My Library
+            <Link to="/auth" className="landing-button primary">
+              Start Your Library
             </Link>
 
             <Link to="/search" className="landing-button secondary">
@@ -40,13 +40,13 @@ const Landing = () => {
         <div className="feature-item">
           <span className="feature-accent"></span>
           <h2>Track Your Books</h2>
-          <p>Keep all your books organized in one personal library.</p>
+          <p>Keep your books organized in your own personal library.</p>
         </div>
 
         <div className="feature-item">
           <span className="feature-accent"></span>
           <h2>Save Your Progress</h2>
-          <p>Mark books as read or keep them on your Want to Read list.</p>
+          <p>Keep track of what you've read and what you want to read next.</p>
         </div>
 
         <div className="feature-item">

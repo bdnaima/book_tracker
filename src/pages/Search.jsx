@@ -6,7 +6,7 @@ import { supabase } from "../lib/supabase";
 import bookCoverDefault from "../assets/images/book_cover.jpg";
 import "../App.css";
 
-const Search = ({ setBooks }) => {
+const Search = ({ setBooks, user }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -16,32 +16,54 @@ const Search = ({ setBooks }) => {
 
   // Function to search for books
   const searchBooks = async () => {
-    setLoading(true);
-    setHasSearched(true);
-    // Fetch books from Open Library API
-    const res = await fetch(
-      `https://openlibrary.org/search.json?q=${searchTerm}`,
-    );
-    // Check if the response is successful
-    if (!res.ok) {
-      toast.error("Failed to fetch books");
-      setLoading(false);
+    if (!searchTerm.trim()) {
+      toast.info("Please enter a book title or author.");
       return;
     }
-    // If the response is successful, parse the JSON data
-    const data = await res.json();
-    console.log(data.docs);
-    setResults(data.docs.slice(0, 12));
-    setLoading(false);
+    setLoading(true);
+    setResults([]);
+    setHasSearched(true);
+
+    // Fetch books from Open Library API
+    try {
+      const res = await fetch(
+        `https://openlibrary.org/search.json?q=${encodeURIComponent(
+          searchTerm.trim(),
+        )}`,
+      );
+
+      // Check if the response is successful
+      if (!res.ok) {
+        toast.error("Failed to fetch books");
+        setLoading(false);
+        return;
+      }
+
+      // If the response is successful, parse the JSON data
+      const data = await res.json();
+
+      setResults(data.docs.slice(0, 12));
+      setLoading(false);
+    } catch (error) {
+      console.error("Error searching books:", error);
+      toast.error("Could not search for books.");
+      setLoading(false);
+    }
   };
 
   // Function to save a book
   const saveBook = async (book) => {
+    if (!user) {
+      toast.info("Please log in to save books to your library.");
+      navigate("/auth");
+      return;
+    }
     const newBook = {
       title: book.title,
       author: book.author_name?.[0] || "Unknown",
       status: "Want to Read",
       cover_i: book.cover_i,
+      user_id: user.id, // Associate the book with the current user's ID
     };
 
     // Check if the book already exists
@@ -79,13 +101,16 @@ const Search = ({ setBooks }) => {
     setBooks((prev) => [...prev, data]);
     // Show a success message
     toast.success("Book added successfully!");
-    // Navigate back to the home page
-    navigate("/");
+    // Navigate back to the library
+    navigate("/library");
   };
 
   return (
     <section className="search">
       <h1>Search Books</h1>
+      <p className="search-subtitle">
+        Find books and add them to your personal library.
+      </p>
 
       <div className="search-wrapper">
         <div className="search-box">
@@ -94,6 +119,11 @@ const Search = ({ setBooks }) => {
           <input
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                searchBooks();
+              }
+            }}
             placeholder="Search books..."
           />
 
@@ -133,7 +163,7 @@ const Search = ({ setBooks }) => {
               </p>
 
               <button className="save-btn" onClick={() => saveBook(book)}>
-                Save Book
+                {user ? "Save Book" : "Log in to Save"}
               </button>
             </div>
           </div>

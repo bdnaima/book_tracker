@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { supabase } from "../lib/supabase";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import "./Auth.css";
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,11 +21,12 @@ const Auth = () => {
       });
 
       if (error) {
+        toast.error("Invalid email or password.");
         console.error("Login error:", error);
         return;
       }
 
-      console.log("Logged in successfully!");
+      navigate("/library");
     } else {
       const { error } = await supabase.auth.signUp({
         email,
@@ -30,11 +34,14 @@ const Auth = () => {
       });
 
       if (error) {
+        toast.error(
+          "Could not create your account. Please use valid email account.",
+        );
         console.error("Sign up error:", error);
         return;
       }
-
-      console.log("Account created successfully!");
+      toast.success("Account created successfully! You can now log in.");
+      setIsLogin(true);
     }
   };
 
@@ -60,11 +67,13 @@ const Auth = () => {
             type="password"
             name="password"
             placeholder="Password"
+            minLength={6}
+            autoComplete={isLogin ? "current-password" : "new-password"}
             required
           />
           {!isLogin && (
             <p className="password-hint">
-              Choose a secure password that you will remember.
+              Use a password with at least 6 characters.
             </p>
           )}
           <button type="submit" className="auth-button">
